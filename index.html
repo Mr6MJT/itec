@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Filter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Item Filter</h2>
+        <div class="form-group">
+            <label for="brandFilter">Select Brand:</label>
+            <select id="brandFilter" class="form-control">
+                <option value="">All Brands</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="itemGroupFilter">Select Item Group:</label>
+            <select id="itemGroupFilter" class="form-control">
+                <option value="">All Item Groups</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="supplierFilter">Select Supplier:</label>
+            <select id="supplierFilter" class="form-control">
+                <option value="">All Suppliers</option>
+            </select>
+        </div>
+        <button id="filterButton" class="btn btn-primary">Filter</button>
+
+        <h3 class="mt-4">Filtered Items</h3>
+        <table class="table table-bordered" id="filteredItemsTable">
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Item Group</th>
+                    <th>Supplier</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Filtered items will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let data = {
+            "message": {
+                "brands": ["HPE", "HP", "MIKROTIK", "D-LINK", "EPSON", "SAMSUNG", "KINGSTON", "TP-LINK", "HPA", "SONY", "KASPERSKY", "APC", "MICROSOFT", "MANHATTAN", "ASUS", "CANON", "LG", "JBL", "HARMAN KARDON", "CISCO", "VERBATIM", "BROTHER", "ACER", "PHILIPS", "ZEBRA", "KODAK", "STAR", "WINTEC", "ISOFT", "WINTECH", "GENIUS", "INTELLINET", "DELL", "AOC", "EWENT", "DAHUA", "AIRSKY", "ADORAMA", "LIBANTEK", "LOGITECH", "THERMALTAKE", "PROLINK", "POLIMA", "SKYLINE", "Cloudflare", "NAPOFIX", "CADEIRA", "Others", "HISENSE", "HORSE", "INOVIA", "TEAM GROUP INC.", "ADATA", "CRUCIAL", "TRANSCEND", "PORT DESIGN", "XIAOMI", "MAXELL", "LENOVO", "LUNAR", "NGS", "LIFETECH", "KINGSLONG", "TARGUS", "URBAN FACTORY", "MSI", "APPLE", "FELLOWES", "CROWN", "HIKVISION", "TOSHIBA", "PANASONIC", "SHARP", "XPRINTER", "LDNIO", "POLAROID", "NAVIGATOR", "HITACHI", "ENERGIZER", "FORTINET", "ADVENICA", "GRAND STREAM", "OSMOND", "AMP", "SQL", "ITEC", "GLANCETRON", "XIGMATEK", "TEAM GROUP", "XPG", "SANDISK", "SEAGATE", "ARUBA HP", "BLACKVIEW", "WESTERN DIGITAL", "EMTEC", "HGST", "PANTHER", "NETLINK", "TRENDNET", "NCTS", "Unknown", "APACER", "LIVIN", "BLAUPUNKT", "CLEA", "JVC", "PRIMUX", "SPIRIT OF GAMER", "CREATIVE", "GROWATT", "CHINA", "HONEYWELL", "NEDIS", "PIONEER", "BEATS", "RELAYS", "POLONA", "MAVERICK", "AASTRA", "FANVIL", "YEALINK", "KIOXIA", "LEGRAND", "CONCEPTRONIC", "LINKCOMN", "SPROTEK", "SENTRY SAFE", "GOOGLE", "H3C", "NETGEAR", "DIAMEC", "PULSAR", "BACKLIT", "KAISE", "WP", "HyperX", "DELTA", "KYOCERA", "OPNsense", "Zenarmor", "M&G", "KONICA", "YUASA", "NOVUS", "MAPED", "STAPLES", "FABER CASTELL", "AFOX", "UHU", "ssa", "BISMARK", "LOREX", "UNIVIGOUR", "NVIDIA", "BOSI TOOLS", "DMInteract", "NORTON", "TONSION", "NADAMOO", "BOSCH", "MEIRENDE", "INTEL", "PASSBOLT", "CASIO", "TALARIS", "BRAVEN", "FARGO", "BROADCOM", "EZVIZ", "WEIFENG", "SYNOLOGY", "BOYA", "RODE", "DELI", "TENDA", "MAXTESTER", "TEKCOPLUS", "OTTERBOX", "NOVKER", "OPM", "PREMAX", "HAIXUN", "Q-CONNECT", "POWERMATIC", "MAB", "AUTODESK", "ArchiCAD", "GRAPHISOFT", "LUMION", "AMBAR", "AUKEY", "EDDING", "MIDEA", "SARAMONIC", "E-IMAGE", "BAOFENG", "TSC", "Great Wall", "UDA", "ZKTECO", "ADOBE", "YEASTAR", "NOKIA", "UBIQUITI", "BEKO"],
+                "item_groups": ["KASPERSKY B2B", "KASPERSKY B2C", "FIREWALL", "LICENSES", "None", "ACCESSORIOS HP", "HP SERVICES", "DATA DIODE", "ADT", "ISOFT NEXT", "Unknown", "SERVICE", "ACCESS POINT", "FIBER OPTIC", "ANTIVIRUS", "AUSCULTADORES", "MIKROTIK", "NVR", "DVR", "DESKJET", "OFFICEJET", "ETIQUETAS", "IMPRESSORAS POS", "FOTOCOPIADORES", "FERAMENTE", "REDE DIVERSOS", "NETWORK CABLES", "BASTIDORES", "VOIP", "WEBCAM", "RATO E TECLADO", "TECLADO", "RATO", "OTHER MONITORS", "DISCOS EXTERNOS CLOUD", "USB PEN DRIVE", "CARTAOS DE MEMORIAS", "OUTROS COMPONENTES", "PLACA GRAFICA", "DISCOS RIGIDOS INTERNO", "DISCOS RIGIDOS EXTERNO", "MEMORIA RAM", "MAIN BOARD", "FONTE DE ALIMENTACAO", "HDMI", "ROUTER", "LENOVO PC", "DELL PC", "UPS", "SWITCH", "PAPEIS/ROLO", "FITAS", "DRUM", "TONER", "INK", "LASERJET", "HP PC", "BATERIAS DE PORTATEIS", "TRANFORMADORES DE PORTATEIS", "PORTATEIS", "SPEAKERS/COLUNAS", "LASER LIGHT", "JOGOS", "MAQUINA FILMAR", "MAQUINA FOTO", "TELEMOVEL", "PROJECTOR", "TV", "IP TV", "LED LIGHT", "CABOS ENERGIA", "MALAS/MOCHILAS", "PILHAS", "BATERIAS", "PROCESSADORES", "TRANSFORMERS", "TOMADAS", "CONECTIVIDADE", "OUTROS PERIFERICOS", "CCTV CAMERAS", "CCTV CABOS", "CONVERSORES DIVERSOS", "SEM CAIXA", "USADO", "ISOFT", "ACCESSORIOS", "PERIFERICOS", "ARMAZENAMEN", "LAPTOP ACCESSORIES", "SCHOOL SUPPLIES", "MONITORES", "USB PRODUCTS", "USB CABLE", "TV SUPPORT", "TABLETS", "TABLES", "SOFTWARE", "SERVIDORES", "IMPRESSORAS", "POS POINT OF SALE", "OFFICE SUPPLIES", "NEW", "NETWORK", "MISCELLANEOUS", "LAPTOPS", "DESKTOP PC", "MINERVA SOFTWARE", "DIVERSOS", "CONVERTERS", "MATERIAL ESCRITORIO E ESCOLAR", "ENERGIA", "MULTIMEDIA", "VIDEO VIGILANCIA", "COMPONENTES", "CONSUMIVEIS", "ROOM 3", "ROOM 2", "ROOM 1", "QTY 0 ARMAZEM", "NEED INVENTORY", "DIGITAL MARKETING", "IT DEPARTMENT", "DAHUA", "TPLINK", "DELETE", "PCS", "HORA", "SERVER-100", "G-500", "G-400", "G-300", "G-200", "G-100", "CISCO", "WINTECH", "HUAWEI", "EMC", "NGS", "XIAOMI", "DELL", "LENOVO", "STAR", "NCTS", "ZEBRA", "EPSON", "SAMSUNG", "F-200", "F-100", "D-500", "D-400", "D-300", "D-200", "D-100", "C-500", "C-400", "C-300", "C-200", "C-100", "B-500", "B-400", "B-300", "F-500", "F-400", "F-300", "B-200", "B-100", "E-500", "E-400", "E-300", "E-200", "E-100", "S-300", "S-100", "L-100", "S-200", "T-100", "M-101", "U-100", "M-100", "NET-100", "R-100", "P-100", "I-100", "WADDAH", "ITEC", "HP", "OUTRAS IMPRESSORAS", "CD/DVD", "SERVICOS CONTRATADOS NO ESTRANGEIROS", "IMPORTACAO", "SERVICOS", "OUTROS BENS DE CONSUMO", "EXISTENCIAS/INVENTARIO", "MEIOS FIXOS E INVESTIMENTOS", "POUND", "LITRE", "KILOGRAM", "DATA.DOL", "ITEC2019.DOL", "MINERVA", "YASSINE", "EDSON", "CAT", "DDDDDD", "FDGFDG", "DSFDSFDS", "FDSF", "LOCAL SERVER", "GroupUnknown", "Consumable", "Sub Assemblies", "Services", "Raw Material", "Products", "All Item Groups"],
+                "suppliers": ["3211016", "3211045", "3211046", "3211049", "3211051", "3211055", "3211002", "3211010", "3211006", "3211007", "3211009", "3211012", "3211005", "3211015", "3211017", "3211019", "3211020", "3211021", "3211026", "3211022", "3211023", "3211024", "3211025", "3211027", "3211028", "3211029", "3211030", "3211031", "3211032", "3211033", "3211034", "3211035", "3211036", "3211037", "3211039", "3211038", "3211040", "3211042", "3211041", "3211044", "3211050", "3211047", "3211048", "3211052", "3211054", "3211053", "3231001", "NOVO IT- COMMERCIO E SERVIÇOS (SU), LDA", "ANGO EL-SAFA LDA", "3221001", "3221002", "3221003", "3221006", "32331002", "32331003", "AKILCO COMERCIO LDA.", "Didario Comercial Geral", "Superior Auto", "HOSSAIN BANGLA COMERCIO GERAL", "NILE DUTCH", "Ango Web Solucoes lda", "Rota Controles De Pragas Urbanas,Lda", "Gonda Africa Comercio e Representacaoes", "Lusolanda,Sociedade Comercial", "CEUFRA COMERCIO E SERVIÇOS LDA", "INOVIA - ELECTRONICA DE ANGOLA LDA.", "GJS Advogados Servicos Jurid", "VMware,,Inc", "Angoalissar Comercio & Industria", "TEC VM Consultoria Informatica e Servicos Lda", "Guandge Internacional Group,Lda", "Alfa Trading Lda", "CONSTIT ILINK E PULSAR", "Can America Autoparts", "Zopo Comercio Geral,Lda", "Pulsar", "Assitecnal Comercio e Prestacao", "Hehua Comercio e Servicos Lda", "Sonho Da Casa Comercio e Prestacao", "Modanio Comercio Geral,Lda", "ANGOLAUTO", "Servir Luanda", "BEST BUY-COMERCIO GERAL, LDA", "Ceptual Comercio e Prestacao", "MIKE BIKE CIMERCIAL GERAL", "HONGKONG RONDE INDUSTRIAL CO LIMITED", "HONGKONG RONDE INDUSTRIAL CO LIMITED DISABLED", "Falcons GT Motors", "COMPUSIS LDA", "Digital Print Publicidade, Lda", "Formanix Comercio Geral Lda", "Africell Angola S A", "X Inovacoes Prestacoes De Servicos", "ISOFT, LDA", "ANGOJORDAN-ENERGIA . LDA", "VIT AND ISOFT", "FAIRS AND EVENTS ARENA,LADA", "SOTELEFONES & TECNOLOGIAS", "100 PROBLEMAS A CONTABILIDADE E CONSULTORIA,LDA", "VANDA ELISABETE FONSECA DA SILVA", "STYLUS LDA", "A.K.G.L - COMERCIO", "KORRI AUTO PARTS", "EMMI - SEG PRIVADA, LDA", "ESTILO AUTOMOVEL-COMERCIO G P SERVICOES SU,LDA", "DREAM HOLIDAYS", "Cargo Care", "Ethiopian Airlines Group", "NCR", "3211003", "JOSE PEREIRA MOREIRA DA SILVA", "AJ Projectos. Fiscalizacao", "J.L.R.D COMÉRCIO & PRESTAÇÃO DE SERVIÇO", "LIBANTEK", "3211107", "ANGOLINDO - COMERCIO GERAL, LDA", "N.E.R.D DIGITAL", "GOLDEN RIO, SA", "MIKROTIK SIA", "MARFIGEST, LDA.", "INFOBYTE-PAPELARIA E INFORMATICA, LDA", "VITAL SOLUTIONS PTE LTD", "FMF Comercial", "N.E.R.D Digital Prestacao de Servicos SU,Lda", "Centro Regional de Traducao Interpretacao e localizacao", "Viptex Comercio e Industria ,Lda", "Roberval Grafica (SU) LDA", "ICC ANGOLLA LDA", "JANELA DIGITAL - PRESTAÇÃO DE SERVIÇOS , (SU), LDA", "F.T.D.F-COMERCIO E INDUSTRIA SU LDA", "IDALECIO ALEXANDRE ALBINO", "Big Sale", "Emirates Sucursal de Angola", "DIAS CUNHA - COMÉRCIO E SERVIÇOS, (SU). LDA", "Assoc Uniao Cultural Libanesa", "Easy Systems", "ELKN- TRANSPORTES & SERVIÇOS (SU), LDA", "LEDIL - COMERCIO E INDUSTRIA, LDA", "Mundo da Casa Mdc-Comercio (SU) Lda", "ROCHA MONTEIRO, LDA", "IMEX TRADE-IMPORT.E EXPORT.COM.GER.E SERVIÇOS, LDA", "Unicom Lda", "3211008"]
+            }
+        };
+
+        $(document).ready(function() {
+            // Populate the brand filter
+            data.message.brands.forEach(function(brand) {
+                $('#brandFilter').append(`<option value="${brand}">${brand}</option>`);
+            });
+
+            // Populate the item group filter
+            data.message.item_groups.forEach(function(group) {
+                $('#itemGroupFilter').append(`<option value="${group}">${group}</option>`);
+            });
+
+            // Populate the supplier filter
+            data.message.suppliers.forEach(function(supplier) {
+                $('#supplierFilter').append(`<option value="${supplier}">${supplier}</option>`);
+            });
+
+            // Handle filter button click
+            $('#filterButton').click(function() {
+                const selectedBrand = $('#brandFilter').val();
+                const selectedGroup = $('#itemGroupFilter').val();
+                const selectedSupplier = $('#supplierFilter').val();
+
+                // Clear the table
+                $('#filteredItemsTable tbody').empty();
+
+                // Here you would typically filter your data based on the selections
+                // For demonstration, we will just add a sample row
+                $('#filteredItemsTable tbody').append(`
+                    <tr>
+                        <td>${selectedBrand || 'Any Brand'}</td>
+                        <td>${selectedGroup || 'Any Group'}</td>
+                        <td>${selectedSupplier || 'Any Supplier'}</td>
+                    </tr>
+                `);
+            });
+        });
+    </script>
+</body>
+</html>
