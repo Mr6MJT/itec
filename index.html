@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
         body {
-            background-color: #e9ecef;
+            background-color: #bec7ea;
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
@@ -18,19 +18,15 @@
             margin-top: 60px;
             border-radius: 15px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            background-color: #ffffff;
+            background-color: #556bc2;
             padding: 40px;
             max-width: 950px;
         }
         h2 {
-            color: #343a40;
+            color: #ffffff;
             font-weight: 600;
             text-align: center;
             margin-bottom: 30px;
-            transition: color 0.3s;
-        }
-        h2:hover {
-            color: #007bff;
         }
         .filter-container {
             display: flex;
@@ -42,24 +38,33 @@
             min-width: 200px;
         }
         .form-group label {
-            color: #007bff;
+            color: #ffffff;
             font-weight: 500;
             margin-bottom: 8px;
             display: block;
-            transition: color 0.3s;
-        }
-        .form-group label:hover {
-            color: #0056b3;
         }
         .form-control {
             border-radius: 12px;
             border: 1px solid #ced4da;
             padding: 10px;
-            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+        .dropdown-search {
+            position: relative;
+        }
+        .mt-4 {
+            color: white;
+        }
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .search-input {
+            padding: 10px;
+            width: 100%;
+            border: none;
+            outline: none;
+            box-shadow: none;
+            border-bottom: 1px solid #ced4da;
         }
         .json-output {
             background-color: #f8f9fa;
@@ -71,23 +76,6 @@
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
             word-wrap: break-word;
-        }
-        .btn {
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 12px;
-            padding: 10px 20px;
-            font-weight: 500;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-        @media (max-width: 768px) {
-            .filter-container {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
