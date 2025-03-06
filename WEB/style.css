@@ -1,0 +1,58 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    background-color: lightgrey;
+}
+.header {
+    height: 60px;
+    background-color: #806BDC;
+    text-align: center;
+    position: relative               
+}
+.header2 {
+    text-decoration: none;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 25px;
+    font-weight: 550;
+    position: absolute;          
+    top: 50%;                 
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.items {
+    background-color: white;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+.items a {
+    text-decoration: none;
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 550;
+}
+img {
+    height: 64px;
+    padding: 0 80px;
+}
+td {
+    display: table-cell;
+    vertical-align: inherit;
+    unicode-bidi: isolate;
+}
+
+.shopping-time-img {
+    margin-top: 30px;
+    width: 90vw;
+    height: 60vh;
+}
