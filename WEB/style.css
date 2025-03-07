@@ -45,14 +45,43 @@ img {
     height: 64px;
     padding: 0 80px;
 }
-td {
-    display: table-cell;
-    vertical-align: inherit;
-    unicode-bidi: isolate;
-}
 
 .shopping-time-img {
     margin-top: 30px;
     width: 90vw;
     height: 60vh;
+}
+
+.Sales-table {
+    width: 90vw;
+    margin: auto;
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 12px;
+}
+th { 
+    background-color: #806bdc;
+}
+.sales {
+    position: absolute;          
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+
+}
+.Information {
+    width: 100%;
+    /* margin: 20px; */
+    font-size: 11px;
+    color: #878787;
+    list-style-position: inside;
+    background-color: white;
+}
+.cr {
+    height: 50px;
+    padding-top: 28px;
+    background-color: black;
+    color: white;
+    text-align: center;
+
 }
