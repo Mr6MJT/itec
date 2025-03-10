@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 40px 0px;
+    background-color: #150734;    
+}
+
+.shmel {
+    flex: 1;
+    text-align: left;
+
+}
+
+.yamin {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.yamin img {
+    max-width: 100%;
+    height: 300px;
+}
+
+.hi, .aa  , pre {
+    color: white;
+    margin: 10px 0;
+}
+
+.mahdi {
+    color: orange;
+}
+
+a {
+    color: black;
+    border:orange 15px solid;
+    background-color: orange;
+    text-decoration: none;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+
+.shmel h1 {
+    display: inline-block;
+    width: fit-content;
+}
+
+.shmel p {
+    width: fit-content;
+    max-width: 100%;
+}
+
+pre {
+    font-size: 16px;
+}
+.yamin, .shmel {
+    padding: 50px;
+}
