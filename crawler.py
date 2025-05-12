@@ -3,12 +3,10 @@ import base64
 import json
 from pymongo import MongoClient
 
-# MongoDB setup
 client = MongoClient("mongodb://localhost:27017/")
 db = client["my_database"]
 collection = db["product_responses"]
 
-# API request setup
 num = 1
 params = {
     'workspace': 'master',
@@ -20,20 +18,16 @@ params = {
 }
 
 cookies = {
-    # Fill in if needed
 }
 
 headers = {
     'Content-Type': 'application/json',
-    # Add more headers if required
 }
 
 while True:
-    # Create and encode variable
     variable = f'{{"productId":"{num}"}}'
     encoded_variable = base64.b64encode(variable.encode("utf-8")).decode("utf-8")
 
-    # Create request body
     data = {
         "operationName": "productRecommendations",
         "variables": json.loads(variable),
@@ -48,7 +42,6 @@ while True:
         }
     }
 
-    # Send request
     response = requests.post(
         'https://www.ncrangola.com/_v/private/graphql/v1',
         params=params,
@@ -57,7 +50,6 @@ while True:
         json=data
     )
 
-    # Stop if status code is 500
     if response.status_code == 500:
         print(f"Stopped at productId {num} (status 500)")
         break
