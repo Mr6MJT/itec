@@ -17,9 +17,6 @@ params = {
     '__bindingId': 'd29086b8-f38b-4a8b-9d93-dfe44418ac0d',
 }
 
-cookies = {
-}
-
 headers = {
     'Content-Type': 'application/json',
 }
@@ -45,20 +42,33 @@ while True:
     response = requests.post(
         'https://www.ncrangola.com/_v/private/graphql/v1',
         params=params,
-        cookies=cookies,
         headers=headers,
         json=data
     )
 
-    if response.status_code == 500:
-        print(f"Stopped at productId {num} (status 500)")
-        break
-
     try:
         parsed_response = response.json()
-        collection.insert_one(parsed_response)
-        print(f"Inserted productId {num}")
+        
+        if (response.status_code == 500 and 
+            parsed_response.get("message") == "Request failed with status code 500" and 
+            parsed_response.get("extensions", {}).get("code") == "INTERNAL_SERVER_ERROR"):
+            
+            print(f"Stopped at productId {num} (specific 500 error)")
+            break
+            
+        if response.status_code == 200:
+            collection.insert_one(parsed_response)
+            print(f"Inserted productId {num}")
+        else:
+            print(f"Received non-200 status ({response.status_code}) for productId {num}")
+
+    except json.JSONDecodeError:
+        print(f"Failed to parse response for productId {num}")
+        if response.status_code == 500:
+            print(f"Stopped at productId {num} (non-JSON 500 response)")
+            break
+            
     except Exception as e:
-        print(f"Error inserting productId {num}: {e}")
+        print(f"Error processing productId {num}: {str(e)}")
 
     num += 1
