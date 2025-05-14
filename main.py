@@ -34,7 +34,7 @@ def start_crawler():
             )
 
         processes["crawler"] = subprocess.Popen(
-            ["python", "crawler.py"],
+            ["python3", "crawler.py"],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )
@@ -95,7 +95,7 @@ def generate_excel_report():
     try:
         # Run Excel generator
         result = subprocess.run(
-            ["python", "excel.py"],
+            ["python3", "excel.py"],
             capture_output=True,
             text=True,
             timeout=300
